@@ -74,7 +74,7 @@ function Homepage() {
           } else if (
             (date && date !== flight.date) ||
             flight.occupancy <= 0 ||
-            new Date(flight.date) < new Date()
+            new Date(flight.date).getDate() < new Date().getDate()
           ) {
             return;
           } else if (date === null) {
