@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set } from "firebase/database";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fireBaseAuth, fireBaseDataBase } from "../../firebase/fireBaseHandler";
 
 function SignUp() {
@@ -22,6 +22,7 @@ function SignUp() {
     password: null,
     confirmPassword: null,
   });
+  const nav = useNavigate();
   const [disable, setDisable] = useState(false);
   const [name, setName] = useState(null);
   const [gender, setGender] = useState(null);
@@ -39,6 +40,9 @@ function SignUp() {
   const handleClick = () => {
     if (validate_form()) {
       setDisable(true);
+    }
+
+    if (validate_form()) {
       signUp();
       addToDatabase();
       setDisable(false);
@@ -53,15 +57,14 @@ function SignUp() {
       userDetails.password
     )
       .then(async (data) => {
-        alert(data.user.uid);
-          const databaseRef = ref(fireBaseDataBase, `users/${data.user.uid}`);
-          await set(databaseRef, {
-            name: userDetails.name,
-            gender: userDetails.gender,
-            phone: userDetails.phone,
-            email: userDetails.email,
-          });
-      
+        const databaseRef = ref(fireBaseDataBase, `users/${data.user.uid}`);
+        await set(databaseRef, {
+          name: userDetails.name,
+          gender: userDetails.gender,
+          phone: userDetails.phone,
+          email: userDetails.email,
+        });
+        nav("/");
       })
       .catch((err) => {
         alert(err.message);
