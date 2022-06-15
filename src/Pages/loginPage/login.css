@@ -1,0 +1,17 @@
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: auto;
+  -webkit-box-shadow: 7px 10px 17px 0px rgba(84, 83, 84, 1);
+  -moz-box-shadow: 7px 10px 17px 0px rgba(84, 83, 84, 1);
+  box-shadow: 7px 10px 17px 0px rgba(84, 83, 84, 1);
+  padding: 20px;
+}
+
+.login-form-elements {
+  height: fit-content;
+  margin: 20px;
+}

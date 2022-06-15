@@ -1,0 +1,26 @@
+.signUp-form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-items: center;
+  width: fit-content;
+  margin: auto;
+  -webkit-box-shadow: 7px 10px 17px 0px rgba(84, 83, 84, 1);
+  -moz-box-shadow: 7px 10px 17px 0px rgba(84, 83, 84, 1);
+  box-shadow: 7px 10px 17px 0px rgba(84, 83, 84, 1);
+  padding: 20px;
+}
+
+.bg-img {
+  position: absolute;
+  width: 100vw;
+  height: 99vh;
+  opacity: 0.1;
+}
+
+.form-element {
+  margin: 10px;
+  height: 18vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
