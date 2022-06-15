@@ -71,7 +71,11 @@ function Homepage() {
                 flightDetails={flight}
               ></FlightCard>
             );
-          } else if ((date && date !== flight.date) || flight.occupancy <= 0) {
+          } else if (
+            (date && date !== flight.date) ||
+            flight.occupancy <= 0 ||
+            new Date(flight.date) < new Date()
+          ) {
             return;
           } else if (date === null) {
             return (
