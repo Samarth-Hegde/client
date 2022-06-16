@@ -11,6 +11,7 @@ function Homepage() {
   const [flightList, setFlightList] = useState([]);
   const [id, setId] = useState([]);
   const [date, setDate] = useState(null);
+  const [name, setName] = useState();
   const nav = useNavigate();
   const handleChange = (e) => {
     setDate(e.target.value);
@@ -31,6 +32,12 @@ function Homepage() {
     onAuthStateChanged(fireBaseAuth, (user) => {
       if (!user) {
         nav("/login");
+      } else {
+        const dataBaseRef = ref(fireBaseDataBase, `users/${user.uid}`);
+        onValue(dataBaseRef, (snapshot) => {
+          setName(snapshot.val().name.split(" ").slice(0, -1).join(" "));
+          console.log(name.split(" ").slice(0, -1).join(" "));
+        });
       }
     });
   }, [flightList]);
@@ -40,7 +47,7 @@ function Homepage() {
       <div className="header">
         <p></p>
         <Typography sx={{ textAlign: "center", margin: "50px" }} variant="h4">
-          Flight List
+          Hello {name} here is your flight list
         </Typography>
         <Button sx={{ margin: 2 }} variant="contained" onClick={handleLogOut}>
           Log Out
