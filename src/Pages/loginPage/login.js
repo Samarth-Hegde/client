@@ -80,7 +80,7 @@ function Login() {
         </Button>
         <Typography variant="h6">
           Do not have an account?
-          <Link to="/signUp"> Sign Up</Link>
+          <Link to="/signup"> Sign Up</Link>
         </Typography>
       </div>
     </div>

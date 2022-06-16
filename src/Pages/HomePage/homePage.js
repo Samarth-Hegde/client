@@ -36,7 +36,6 @@ function Homepage() {
         const dataBaseRef = ref(fireBaseDataBase, `users/${user.uid}`);
         onValue(dataBaseRef, (snapshot) => {
           setName(snapshot.val().name.split(" ").slice(0, -1).join(" "));
-          console.log(name.split(" ").slice(0, -1).join(" "));
         });
       }
     });
@@ -89,7 +88,7 @@ function Homepage() {
             new Date(flight.date).getDate() < new Date().getDate()
           ) {
             return;
-          } else if (date === null) {
+          } else {
             return (
               <FlightCard
                 id={id[index]}

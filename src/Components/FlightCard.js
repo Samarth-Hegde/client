@@ -6,31 +6,27 @@ import Typography from "@mui/material/Typography";
 import { ref, set, onValue } from "firebase/database";
 import "./FlightCard.css";
 import { fireBaseAuth, fireBaseDataBase } from "../firebase/fireBaseHandler";
-import { async } from "@firebase/util";
 import { onAuthStateChanged } from "firebase/auth";
 
 function FlightCard(props) {
-  const [occ, setOcc] = useState();
   const [uid, setUid] = useState();
-  const [userDetails, setUserDetails] = useState();
   const handleClick = async () => {
-    getUsers();
+    addTicket();
     const dataBaseRef = ref(fireBaseDataBase, `flights/${props.id}`);
     onValue(
       dataBaseRef,
       async (snapshot) => {
         const occRef = ref(fireBaseDataBase, `flights/${props.id}/occupancy`);
         await set(occRef, parseInt(snapshot.val().occupancy) - 1);
+        alert("Ticket booked");
       },
       { onlyOnce: true }
     );
-    alert("Added to passengers list");
   };
-  const getUsers = async () => {
-    const getUserRef = ref(fireBaseDataBase, `users/${uid}`);
 
+  const addTicket = async () => {
+    const getUserRef = ref(fireBaseDataBase, `users/${uid}`);
     onValue(getUserRef, async (snapshot) => {
-      console.log(snapshot.val());
       const setUserRef = ref(
         fireBaseDataBase,
         `flights/${props.id}/passengers/${uid}`
@@ -40,7 +36,7 @@ function FlightCard(props) {
   };
 
   useEffect(() => {
-    onAuthStateChanged(fireBaseAuth, (user) => {
+    onAuthStateChanged(fireBaseAuth, async (user) => {
       if (user) {
         setUid(user.uid);
       }

@@ -11,6 +11,7 @@ import {
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set } from "firebase/database";
 import { Link, useNavigate } from "react-router-dom";
+import validator from "validator";
 import { fireBaseAuth, fireBaseDataBase } from "../../firebase/fireBaseHandler";
 
 function SignUp() {
@@ -30,7 +31,6 @@ function SignUp() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
-  const [uid, setUid] = useState();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,10 +38,6 @@ function SignUp() {
   };
 
   const handleClick = () => {
-    if (validate_form()) {
-      setDisable(true);
-    }
-
     if (validate_form()) {
       signUp();
       addToDatabase();
@@ -88,14 +84,24 @@ function SignUp() {
     if (!userDetails.phone) {
       setPhone("Please enter your phone number");
       flag = false;
-    } else {
-      setPhone(true);
+    } else if (userDetails.phone) {
+      if (validator.isMobilePhone(userDetails.phone)) {
+        setPhone(true);
+      } else {
+        setPhone("Invalid phone number");
+        flag = false;
+      }
     }
     if (!userDetails.email) {
       setEmail("Please enter your email");
       flag = false;
-    } else {
-      setEmail(true);
+    } else if (userDetails.email) {
+      if (validator.isEmail(userDetails.email)) {
+        setEmail(true);
+      } else {
+        setEmail("Invalid email");
+        flag = false;
+      }
     }
     if (!userDetails.password) {
       setPassword("Please enter your password");
@@ -116,13 +122,17 @@ function SignUp() {
       setConfirmPassword(true);
     }
     if (flag) {
+      setDisable(true);
       return true;
     }
   };
 
   return (
     <div className="signUp-container">
-      <Typography sx={{ textAlign: "center", margin: 5,color: "white" }} variant="h4">
+      <Typography
+        sx={{ textAlign: "center", margin: 5, color: "white" }}
+        variant="h4"
+      >
         Sign Up
       </Typography>
       <div className="signUp-form-container">
