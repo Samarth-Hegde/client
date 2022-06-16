@@ -45,8 +45,27 @@ function Homepage() {
   return (
     <div className="flights-container">
       <div className="header">
-        <p></p>
-        <Typography sx={{ textAlign: "center", margin: "50px" }} variant="h4">
+        <div className="date">
+          <InputLabel sx={{ marginBottom: 1, color: "white" }}>
+            Select Date:
+          </InputLabel>
+          <TextField
+            InputProps={{
+              inputProps: {
+                min: new Date().toISOString().slice(0, 10),
+                style: { fontFamily: "Arial", color: "white" },
+              },
+            }}
+            onChange={handleChange}
+            name="date"
+            type="date"
+          ></TextField>
+        </div>
+
+        <Typography
+          sx={{ textAlign: "center", margin: "50px", color: "white" }}
+          variant="h4"
+        >
           Hello {name} here is your flight list
         </Typography>
         <Button sx={{ margin: 2 }} variant="contained" onClick={handleLogOut}>
@@ -55,20 +74,6 @@ function Homepage() {
       </div>
 
       <div className="cards-container">
-        <InputLabel sx={{ marginLeft: 2, marginBottom: 0.5 }}>
-          Select Date:
-        </InputLabel>
-        <TextField
-          InputProps={{
-            inputProps: {
-              min: new Date().toISOString().slice(0, 10),
-            },
-          }}
-          onChange={handleChange}
-          name="date"
-          sx={{ margin: 2 }}
-          type="date"
-        ></TextField>
         {flightList.map((flight, index) => {
           if (date === flight.date) {
             return (

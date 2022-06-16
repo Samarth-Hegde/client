@@ -122,7 +122,7 @@ function SignUp() {
 
   return (
     <div className="signUp-container">
-      <Typography sx={{ textAlign: "center", margin: 5 }} variant="h4">
+      <Typography sx={{ textAlign: "center", margin: 5,color: "white" }} variant="h4">
         Sign Up
       </Typography>
       <div className="signUp-form-container">

@@ -8,4 +8,18 @@
 
 .flights-container {
   overflow-x: hidden;
+  height: 100vh;
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+}
+
+.cards-container {
+  width: 50vw;
+  margin: auto;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+  margin-top: 73px;
+  justify-content: space-between;
 }

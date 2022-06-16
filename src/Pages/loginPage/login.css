@@ -5,13 +5,19 @@
   align-items: center;
   width: fit-content;
   margin: auto;
-  -webkit-box-shadow: 7px 10px 17px 0px rgba(84, 83, 84, 1);
-  -moz-box-shadow: 7px 10px 17px 0px rgba(84, 83, 84, 1);
-  box-shadow: 7px 10px 17px 0px rgba(84, 83, 84, 1);
+  -webkit-box-shadow: -15px 10px 22px 3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -15px 10px 22px 3px rgba(0, 0, 0, 0.75);
+  box-shadow: -15px 10px 22px 3px rgba(0, 0, 0, 0.75);
   padding: 20px;
+  background-color: white;
 }
 
 .login-form-elements {
   height: fit-content;
   margin: 20px;
+}
+.login-container {
+  overflow: hidden;
+  height: 100vh;
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
 }

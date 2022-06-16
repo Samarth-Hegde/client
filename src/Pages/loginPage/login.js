@@ -36,7 +36,7 @@ function Login() {
   return (
     <div className="login-container">
       <Typography
-        sx={{ textAlign: "center", marginTop: 7, marginBottom: 15 }}
+        sx={{ textAlign: "center", marginTop: 7, marginBottom: 15,color: "white" }}
         variant="h4"
       >
         Log In
