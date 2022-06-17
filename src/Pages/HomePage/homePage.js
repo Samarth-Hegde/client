@@ -35,7 +35,15 @@ function Homepage() {
       } else {
         const dataBaseRef = ref(fireBaseDataBase, `users/${user.uid}`);
         onValue(dataBaseRef, (snapshot) => {
-          setName(snapshot.val().name.split(" ").slice(0, -1).join(" "));
+          function hasWhiteSpace(s) {
+            return s.indexOf(" ") >= 0;
+          }
+
+          if (hasWhiteSpace(snapshot.val().name)) {
+            setName(snapshot.val().name.split(" ").slice(0, -1).join(" "));
+          } else {
+            setName(snapshot.val().name);
+          }
         });
       }
     });

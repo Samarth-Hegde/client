@@ -10,15 +10,53 @@ import { onAuthStateChanged } from "firebase/auth";
 
 function FlightCard(props) {
   const [uid, setUid] = useState();
+  const [userData, setUserData] = useState();
   const handleClick = async () => {
     addTicket();
+    const usersRef = ref(
+      fireBaseDataBase,
+      `flights/${props.id}/passengers/${uid}`
+    );
+    onValue(
+      usersRef,
+      async (snapshot) => {
+        setUserData(snapshot.val());
+      },
+      { onlyOnce: false }
+    );
+    if (userData && "count" in userData) {
+      const countRef = ref(
+        fireBaseDataBase,
+        `flights/${props.id}/passengers/${uid}/count`
+      );
+      await set(countRef, parseInt(userData.count) + 1);
+      onValue(
+        usersRef,
+        async (snapshot) => {
+          alert(` ${snapshot.val().count} tickets booked for this flight`);
+        },
+        { onlyOnce: true }
+      );
+    } else {
+      await set(usersRef, { ...userData, count: 1 });
+      onValue(
+        usersRef,
+        async (snapshot) => {
+          alert(
+            ` ${
+              snapshot.val().count
+            } tickets booked for this flight`
+          );
+        },
+        { onlyOnce: true }
+      );
+    }
     const dataBaseRef = ref(fireBaseDataBase, `flights/${props.id}`);
     onValue(
       dataBaseRef,
       async (snapshot) => {
         const occRef = ref(fireBaseDataBase, `flights/${props.id}/occupancy`);
         await set(occRef, parseInt(snapshot.val().occupancy) - 1);
-        alert("Ticket booked");
       },
       { onlyOnce: true }
     );
